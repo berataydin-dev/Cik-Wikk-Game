@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour 
 {
+    public event Action OnPlayerJumped;
     private Rigidbody _playerRigidbody; 
 
     [Header("References")]
@@ -133,6 +135,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetPlayerJumping()
     {
+        OnPlayerJumped?.Invoke();
         _playerRigidbody.linearVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0f, _playerRigidbody.linearVelocity.z);
         _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
     }

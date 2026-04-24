@@ -1,0 +1,47 @@
+using UnityEngine;
+
+public class PlayerAnimationController : MonoBehaviour
+{
+    [SerializeField] private Animator _playerAnimator;
+    private PlayerController _playerController;
+    private StateController _stateController;
+
+    private void Awake(){
+        _playerController=GetComponent<PlayerController>();
+        _stateController=GetComponent<StateController>();
+    }
+    private void Start(){
+        _playerController.OnPlayerJumped+=PlayerController_OnplayerJumped;
+    }
+    private void Update(){
+        SetPlayerAnimations();
+    }
+    private void PlayerController_OnplayerJumped(){
+        _playerAnimator.SetBool(Consts.PlayerAnimations.IS_JUMPING,true);
+        Invoke(nameof(ResetJumping),0.5f);
+    }
+    private void ResetJumping(){
+        _playerAnimator.SetBool(Consts.PlayerAnimations.IS_JUMPING,false);
+    }
+    private void SetPlayerAnimations(){
+        var currenState=_stateController.GetCurrentState();
+        switch(currenState){
+            case PlayerState.Idle:
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_SLIDING,false);
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_MOVING,false);
+            break;
+             case PlayerState.Move:
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_SLIDING,false);
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_MOVING,true);
+            break;
+             case PlayerState.SlideIdle:
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_SLIDING,true);
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_SLIDING_ACTIVE,false);
+            break;
+             case PlayerState.Slide:
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_SLIDING,true);
+            _playerAnimator.SetBool(Consts.PlayerAnimations.IS_SLIDING_ACTIVE,true);
+            break;
+        }
+    }
+}
