@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c558d58eaaa88948bf8121af53ea21d, type: 3}
   m_Name: RottenWheat
   m_EditorClassIdentifier: Assembly-CSharp::WheatDesignSO
-  _increaseDecreaseMultiplier: 8
+  _increaseDecreaseMultiplier: -25
   _resetBoostDuration: 5
