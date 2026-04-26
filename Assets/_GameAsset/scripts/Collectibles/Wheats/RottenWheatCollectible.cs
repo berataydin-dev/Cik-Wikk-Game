@@ -3,10 +3,9 @@ using UnityEngine;
 public class RottenWheatCollectible : MonoBehaviour, Icollectible
 {
     [SerializeField] private PlayerController _playerConrtoller;
-   [SerializeField] private float _deccreasespeed;
-   [SerializeField] private float _resetBoostDuration;
+  [SerializeField] private WheatDesignSO _wheatDesignSO;
    public void collect(){
-    _playerConrtoller.SetMovementSpeed(_deccreasespeed,_resetBoostDuration);
+    _playerConrtoller.SetMovementSpeed(_wheatDesignSO.IncreaseDecreaseMultiplier,_wheatDesignSO.ResetBoostDuration);
     Destroy(gameObject);
    }
 }
